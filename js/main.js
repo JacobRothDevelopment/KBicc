@@ -12,13 +12,7 @@ const {
   unShuffleStr,
 } = require('./functions');
 
-const key = 'ab8cfe8d1912482c58c701d44912a2b5'.toUpperCase();
-const numLoops = 8;
-const verbose = true;
-
-// const message = 'Hello World?';
-const message =
-  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+const { key, numLoops, verbose, bitsOut, message } = require('./settings');
 
 var hexArrayInput = [];
 for (let i = 0; i < message.length; i++) {
@@ -38,14 +32,23 @@ var checksumOut = parseInt(checksumHexOut, 16) % key.length;
 var checksumKeyOut = shuffleStr(key, checksumOut);
 var hexArrayOutput = Decrypt(middleOutput3, checksumKeyOut, 1);
 
-console.log('SUBMIT     :', charHexArrayToString(hexArrayInput));
-if (verbose) {
-  console.log('Mid1       :', charHexArrayToString(middleOutput1));
-  console.log('Mid2/SENT  :', charHexArrayToString(middleOutput2));
-  console.log('Mid3       :', charHexArrayToString(middleOutput3));
+if (bitsOut) {
+  console.log('SUBMIT     :', hexArrayInput);
+  if (verbose) {
+    console.log('Mid1       :', middleOutput1);
+    console.log('Mid2/SENT  :', middleOutput2);
+    console.log('Mid3       :', middleOutput3);
+  }
+  console.log('RECEIVED   :', hexArrayOutput);
+} else {
+  console.log('SUBMIT     :', charHexArrayToString(hexArrayInput));
+  if (verbose) {
+    console.log('Mid1       :', charHexArrayToString(middleOutput1));
+    console.log('Mid2/SENT  :', charHexArrayToString(middleOutput2));
+    console.log('Mid3       :', charHexArrayToString(middleOutput3));
+  }
+  console.log('RECEIVED   :', charHexArrayToString(hexArrayOutput));
 }
-console.log('RECEIVED   :', charHexArrayToString(hexArrayOutput));
-
 console.log(
   'SUCCESSFUL :',
   charHexArrayToString(hexArrayInput) === charHexArrayToString(hexArrayOutput)
