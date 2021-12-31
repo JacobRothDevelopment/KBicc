@@ -61,4 +61,8 @@ the mapping = [
 
 3. Skip operation (iterate + 0, basically)
 
-4. Add salt. Insert a character before
+4. Add salt. Insert a random character before
+
+# Additional Operations
+
+1. Appending a checksum at the end of the message after every loop to shuffle the key. Ensures that slightly altered messages look drastically different when encrypted

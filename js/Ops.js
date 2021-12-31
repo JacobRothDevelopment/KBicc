@@ -1,53 +1,69 @@
-const { longXor, bitAdd } = require('./functions');
+const { longXor, bitAdd, random8Bits } = require('./functions');
 
+/*
+inputObj = {
+  ascii: string,
+  doInvert: bool,
+  index: int,
+  outBins: string[],
+}
+*/
 const Ops = {
-  0: (charAscii, inverter) => {
-    return charAscii;
+  0: (inputObj) => {
+    inputObj.outBins = [inputObj.ascii];
   },
-  1: (charAscii, inverter) => {
-    return bitAdd(charAscii, 1 * inverter);
+  1: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  2: (charAscii, inverter) => {
-    return bitAdd(charAscii, 2 * inverter);
+  2: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  3: (charAscii, inverter) => {
-    return bitAdd(charAscii, 3 * inverter);
+  3: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  4: (charAscii, inverter) => {
-    return bitAdd(charAscii, 4 * inverter);
+  4: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  5: (charAscii, inverter) => {
-    return bitAdd(charAscii, 5 * inverter);
+  5: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  6: (charAscii, inverter) => {
-    return bitAdd(charAscii, 6 * inverter);
+  6: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  7: (charAscii, inverter) => {
-    return bitAdd(charAscii, 7 * inverter);
+  7: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  8: (charAscii, inverter) => {
-    return bitAdd(charAscii, 8 * inverter);
+  8: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  9: (charAscii, inverter) => {
-    return bitAdd(charAscii, 9 * inverter);
+  9: (inputObj) => {
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
-  A: (charAscii, inverter) => {
-    return longXor(charAscii, '01011011');
+  A: (inputObj) => {
+    inputObj.outBins = [longXor(inputObj.ascii, '01011011')];
   },
-  B: (charAscii, inverter) => {
-    return longXor(charAscii, '01100110');
+  B: (inputObj) => {
+    inputObj.outBins = [longXor(inputObj.ascii, '01100110')];
   },
-  C: (charAscii, inverter) => {
-    return longXor(charAscii, '01001110');
+  C: (inputObj) => {
+    inputObj.outBins = [longXor(inputObj.ascii, '01001110')];
   },
-  D: (charAscii, inverter) => {
-    return longXor(charAscii, '10000010');
+  D: (inputObj) => {
+    inputObj.outBins = [longXor(inputObj.ascii, '10000010')];
   },
-  E: (charAscii, inverter) => {
-    return longXor(charAscii, '00011111');
+  E: (inputObj) => {
+    inputObj.outBins = [longXor(inputObj.ascii, '00011111')];
   },
-  F: (charAscii, inverter) => {
-    return longXor(charAscii, '10110000');
+  F: (inputObj) => {
+    inputObj.outBins = [longXor(inputObj.ascii, '10110000')];
+  },
+  G: (inputObj) => {
+    if (!inputObj.doInvert) {
+      inputObj.outBins = [random8Bits(), inputObj.ascii];
+    } else {
+      inputObj.outBins = [];
+      inputObj.index++;
+    }
   },
 };
 

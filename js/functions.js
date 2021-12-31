@@ -27,10 +27,19 @@ function specialMod(value) {
   return ((value + modNum) % modNum) + modMin;
 }
 
-function getChecksum(s) {
+function getStringChecksum(s) {
   var sum = 0;
   for (let i = 0; i < s.length; i++) {
     var val = s[i].charCodeAt();
+    sum = (sum + val) % 255;
+  }
+  return sum;
+}
+
+function getByteChecksum(arr) {
+  var sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    var val = parseInt(arr[i], 16);
     sum = (sum + val) % 255;
   }
   return sum;
@@ -72,16 +81,29 @@ function unShuffleStr(s, amount) {
   return s2 + s1;
 }
 
+function random8Bits() {
+  var ret = '';
+  for (let i = 0; i < 8; i++) {
+    if (Math.random() > 0.5) {
+      ret += '0';
+    } else {
+      ret += '1';
+    }
+  }
+  return ret;
+}
+
 module.exports = {
   xor,
   longXor,
   bitAdd,
   hex2bin,
   specialMod,
-  getChecksum,
+  getByteChecksum,
   shuffle,
   unShuffle,
   charHexArrayToString,
   shuffleStr,
   unShuffleStr,
+  random8Bits,
 };

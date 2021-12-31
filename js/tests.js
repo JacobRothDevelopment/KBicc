@@ -11,6 +11,7 @@ const {
   shuffleStr,
   unShuffleStr,
   charHexArrayToString,
+  random8Bits,
 } = require('./functions');
 
 // getChecksum('abcd1234');
@@ -44,3 +45,16 @@ const {
 // console.log(unShuffleStr('51234', 1)); // should return 12345
 // console.log(unShuffleStr('51234', 2)); // should return 23451
 // console.log(unShuffleStr('1', 1)); // should return 1
+
+// console.log(random8Bits());
+
+var arr = [];
+console.log(arr);
+for (let i = 0; i < 4; i++) {
+  arr.push(i);
+  console.log(arr);
+}
+for (let i = 0; i < 4; i++) {
+  arr.pop();
+  console.log(arr);
+}
