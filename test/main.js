@@ -8,30 +8,30 @@ const {
 const { ResultsDict } = require('../js/ResultsDict');
 const { _numLoops } = require('../js/settings');
 
-// const _keysLimit = 10;
-// const _messageLimit = 10;
+const _keysLimit = 1000;
+const _messageLimit = 1;
 const _keysFile = '../inputData/keys_1234567890ABCDEF.txt';
 const _messagesFile = '../inputData/a-300.txt';
 // const _messagesFile = '../inputData/sentences.txt';
 // const _messagesFile = '../inputData/veryLargeSentences.txt';
 
-var data = {
+const data = {
   keys: readText(_keysFile),
-  strings: readText(_messagesFile),
+  messages: readText(_messagesFile),
 };
 var results = new ResultsDict();
 
-var iLoopLength =
+const iLoopLength =
   typeof _keysLimit === 'undefined' ||
   _keysLimit === null ||
   _keysLimit > data.keys.length
     ? data.keys.length
     : _keysLimit;
-var iMessageLength =
+const iMessageLength =
   typeof _messageLimit === 'undefined' ||
   _messageLimit === null ||
-  _messageLimit > data.strings.length
-    ? data.strings.length
+  _messageLimit > data.messages.length
+    ? data.messages.length
     : _messageLimit;
 
 for (let i = 0; i < iLoopLength; i++) {
@@ -39,7 +39,7 @@ for (let i = 0; i < iLoopLength; i++) {
   for (let j = 0; j < iMessageLength; j++) {
     const start = new Date();
 
-    const message = data.strings[j];
+    const message = data.messages[j];
     const messageHex = stringToCharHexArray(message);
 
     const cryptHex = Encrypt(messageHex, key, _numLoops);
