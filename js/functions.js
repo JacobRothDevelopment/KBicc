@@ -1,4 +1,6 @@
 const { _hexOut, _numBytes, _numBits } = require('./settings');
+const fs = require('fs');
+const path = require('path');
 
 function xor(char1, char2) {
   var r = char1 === char2 ? '0' : '1';
@@ -14,9 +16,12 @@ function longXor(s1, s2) {
   return ret;
 }
 
-function bitAdd(c, n) {
+function bitAdd(c, n, doSubtract = false) {
   var int = parseInt(c, 2);
   var powerOfTwoMod = 2 ** _numBits;
+  if (doSubtract) {
+    n = n * -1;
+  }
   var retInt = (int + n + powerOfTwoMod) % powerOfTwoMod;
   return retInt.toString(2).padStart(_numBits, '0');
 }
@@ -128,6 +133,18 @@ function arrayEquals(a, b) {
   );
 }
 
+function readText(file) {
+  var fullPath = path.resolve(__dirname, file);
+  var data = fs.readFileSync(fullPath, 'utf8');
+  var inLinesArray = data.split('\n');
+  var outLinesArray = [];
+  for (let i = 0; i < inLinesArray.length; i++) {
+    const el = inLinesArray[i].trim();
+    outLinesArray.push(el);
+  }
+  return outLinesArray;
+}
+
 module.exports = {
   xor,
   longXor,
@@ -144,4 +161,5 @@ module.exports = {
   randomBits,
   ConsoleOut,
   arrayEquals,
+  readText,
 };

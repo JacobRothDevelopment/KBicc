@@ -10,7 +10,7 @@ const {
   shuffleStr,
   unShuffleStr,
   charHexArrayToString,
-  random8Bits,
+  randomBits,
 } = require('./functions');
 
 // getChecksum('abcd1234');

@@ -17,6 +17,13 @@
       "name": "Test/Main",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\test\\main.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "JS/Tests",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\js\\tests.js"
     }
   ]
 }

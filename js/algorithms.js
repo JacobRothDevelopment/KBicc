@@ -33,7 +33,7 @@ function Encrypt(input, rawKey, numLoops) {
       var charAsciiHex = input[i];
       var charAsciiBin = hex2bin(charAsciiHex);
       var inputObj = {
-        ascii: charAsciiBin,
+        inBins: charAsciiBin,
         doInvert: false,
         index: i,
         outBins: [],
@@ -78,7 +78,7 @@ function Decrypt(input, rawKey, numLoops) {
       var charAsciiHex = input[i + inputIndexOffset];
       var charAsciiBin = hex2bin(charAsciiHex);
       var inputObj = {
-        ascii: charAsciiBin,
+        inBins: charAsciiBin,
         doInvert: true,
         inputIndexOffset: inputIndexOffset,
         outBins: [],
