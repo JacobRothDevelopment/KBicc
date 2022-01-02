@@ -5,12 +5,17 @@ const {
   unShuffle,
   getByteChecksum,
   shuffleStr,
+  ConsoleOut,
 } = require('./functions');
-const { verbose } = require('./settings');
+const { _verbose, _numBytes, _numBits } = require('./settings');
 
+/*
+input = array of hex value strings
+rawKey = the key as given by the 
+*/
 function Encrypt(input, rawKey, numLoops) {
-  if (verbose) {
-    console.log('SUBMIT\t:', input);
+  if (_verbose > 0) {
+    ConsoleOut('SUBMIT', input);
   }
 
   var hexArrayOutput = [];
@@ -19,13 +24,10 @@ function Encrypt(input, rawKey, numLoops) {
     hexArrayOutput = [];
 
     var checksum = getByteChecksum(input) % rawKey.length;
-    var checksumHex = checksum.toString(16).padStart(2, '0');
+    var checksumHex = checksum.toString(16).padStart(_numBytes, '0');
     var key = shuffleStr(rawKey, checksum); // the key which has been shifted by the checksum
 
-    var keyOffset = 0;
     for (let i = 0; i < input.length; i++) {
-      // var keyChar = key[(keyOffset + j) % key.length];
-      // keyOffset++;
       var keyChar = key[(i + j) % key.length];
       var op = Ops[keyChar];
       var charAsciiHex = input[i];
@@ -36,19 +38,19 @@ function Encrypt(input, rawKey, numLoops) {
         index: i,
         outBins: [],
       };
-      op(inputObj);
+      op(inputObj); // have to do this because I need to pass by reference
       i = inputObj.index;
       for (let index = 0; index < inputObj.outBins.length; index++) {
         var hexChar = inputObj.outBins[index];
-        var outHex = parseInt(hexChar, 2).toString(16).padStart(2, '0');
+        var outHex = parseInt(hexChar, 2).toString(16).padStart(_numBytes, '0');
         hexArrayOutput.push(outHex);
       }
     }
     hexArrayOutput.push(checksumHex);
     input = shuffle(hexArrayOutput);
 
-    if (verbose) {
-      console.log('encrypt' + j + ':', hexArrayOutput);
+    if (_verbose == 2) {
+      ConsoleOut('encrypt' + j, hexArrayOutput);
     }
   }
 
@@ -56,8 +58,8 @@ function Encrypt(input, rawKey, numLoops) {
 }
 
 function Decrypt(input, rawKey, numLoops) {
-  if (verbose) {
-    console.log('SENT\t:', input);
+  if (_verbose == 1) {
+    ConsoleOut('SENT', input);
   }
 
   var hexArrayOutput = [];
@@ -68,30 +70,32 @@ function Decrypt(input, rawKey, numLoops) {
     var checksumHexOut = input.pop();
     var checksumOut = parseInt(checksumHexOut, 16) % rawKey.length;
     var key = shuffleStr(rawKey, checksumOut); // the key which has been shifted by the checksum
+    var inputIndexOffset = 0;
 
-    for (let i = 0; i < input.length; i++) {
+    for (let i = 0; i + inputIndexOffset < input.length; i++) {
       var keyChar = key[(i + j + key.length) % key.length];
       var op = Ops[keyChar];
-      var charAsciiHex = input[i];
+      var charAsciiHex = input[i + inputIndexOffset];
       var charAsciiBin = hex2bin(charAsciiHex);
       var inputObj = {
         ascii: charAsciiBin,
         doInvert: true,
-        index: i,
+        inputIndexOffset: inputIndexOffset,
         outBins: [],
       };
       op(inputObj);
-      i = inputObj.index;
+      inputIndexOffset = inputObj.inputIndexOffset;
+
       for (let index = 0; index < inputObj.outBins.length; index += 2) {
         var hexChar = inputObj.outBins[index];
-        var outHex = parseInt(hexChar, 2).toString(16).padStart(2, '0');
+        var outHex = parseInt(hexChar, 2).toString(16).padStart(_numBytes, '0');
         hexArrayOutput.push(outHex);
       }
     }
     input = unShuffle(hexArrayOutput);
 
-    if (verbose) {
-      console.log('decrypt' + j + ':', hexArrayOutput);
+    if (_verbose == 2) {
+      ConsoleOut('decrypt' + j, hexArrayOutput);
     }
   }
 

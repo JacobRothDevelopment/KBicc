@@ -61,7 +61,11 @@ the mapping = [
 
 3. Skip operation (iterate + 0, basically)
 
-4. Add salt. Insert a random character before
+4. Add salt. Insert a random character after the given character
+
+5. Optional/Random Salt. Sometimes add salt.
+
+   - Could be based on checksum. If longer than
 
 # Additional Operations
 

@@ -1,3 +1,5 @@
+const { _hexOut, _numBytes, _numBits } = require('./settings');
+
 function xor(char1, char2) {
   var r = char1 === char2 ? '0' : '1';
   return r;
@@ -5,7 +7,7 @@ function xor(char1, char2) {
 
 function longXor(s1, s2) {
   var ret = '';
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < _numBits; i++) {
     var x = xor(s1[i], s2[i]);
     ret += x;
   }
@@ -14,12 +16,13 @@ function longXor(s1, s2) {
 
 function bitAdd(c, n) {
   var int = parseInt(c, 2);
-  var retInt = (int + n + 256) % 256;
-  return retInt.toString(2).padStart(8, '0');
+  var powerOfTwoMod = 2 ** _numBits;
+  var retInt = (int + n + powerOfTwoMod) % powerOfTwoMod;
+  return retInt.toString(2).padStart(_numBits, '0');
 }
 
 function hex2bin(hex) {
-  return parseInt(hex, 16).toString(2).padStart(8, '0');
+  return parseInt(hex, 16).toString(2).padStart(_numBits, '0');
 }
 
 function specialMod(value) {
@@ -67,6 +70,21 @@ function charHexArrayToString(a) {
   return cipher;
 }
 
+function stringToCharHexArray(s) {
+  var hexArray = [];
+  for (let i = 0; i < s.length; i++) {
+    var el = s[i];
+    var charCode = el.charCodeAt();
+    var stringCode = charCode.toString(16);
+    var paddedStringCode = stringCode.padStart(_numBytes, '0');
+    hexArray.push(paddedStringCode);
+    if (paddedStringCode.length > _numBytes) {
+      console.log(paddedStringCode);
+    }
+  }
+  return hexArray;
+}
+
 function shuffleStr(s, amount) {
   if (s.length < 2) return s;
   var s1 = s.substr(0, s.length - amount);
@@ -81,9 +99,9 @@ function unShuffleStr(s, amount) {
   return s2 + s1;
 }
 
-function random8Bits() {
+function randomBits(n = _numBits) {
   var ret = '';
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < n; i++) {
     if (Math.random() > 0.5) {
       ret += '0';
     } else {
@@ -91,6 +109,23 @@ function random8Bits() {
     }
   }
   return ret;
+}
+
+function ConsoleOut(label, array) {
+  if (_hexOut) {
+    console.log(label.padEnd(10, ' ') + ':', array);
+  } else {
+    console.log(label.padEnd(10, ' ') + ':', charHexArrayToString(array));
+  }
+}
+
+function arrayEquals(a, b) {
+  return (
+    Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((val, index) => val === b[index])
+  );
 }
 
 module.exports = {
@@ -103,7 +138,10 @@ module.exports = {
   shuffle,
   unShuffle,
   charHexArrayToString,
+  stringToCharHexArray,
   shuffleStr,
   unShuffleStr,
-  random8Bits,
+  randomBits,
+  ConsoleOut,
+  arrayEquals,
 };

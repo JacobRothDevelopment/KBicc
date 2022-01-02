@@ -5,7 +5,6 @@ const {
   bitAdd,
   hex2bin,
   specialMod,
-  getChecksum,
   shuffle,
   unShuffle,
   shuffleStr,
@@ -48,13 +47,13 @@ const {
 
 // console.log(random8Bits());
 
-var arr = [];
-console.log(arr);
-for (let i = 0; i < 4; i++) {
-  arr.push(i);
-  console.log(arr);
-}
-for (let i = 0; i < 4; i++) {
-  arr.pop();
-  console.log(arr);
-}
+// var arr = [];
+// console.log(arr);
+// for (let i = 0; i < 4; i++) {
+//   arr.push(i);
+//   console.log(arr);
+// }
+// for (let i = 0; i < 4; i++) {
+//   arr.pop();
+//   console.log(arr);
+// }
