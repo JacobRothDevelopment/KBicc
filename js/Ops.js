@@ -17,28 +17,28 @@ const Ops = {
     inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
   },
   2: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -2 : 2)];
   },
   3: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -3 : 3)];
   },
   4: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -4 : 4)];
   },
   5: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -5 : 5)];
   },
   6: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -6 : 6)];
   },
   7: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -7 : 7)];
   },
   8: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -8 : 8)];
   },
   9: (inputObj) => {
-    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -1 : 1)];
+    inputObj.outBins = [bitAdd(inputObj.ascii, inputObj.doInvert ? -9 : 9)];
   },
   A: (inputObj) => {
     inputObj.outBins = [
