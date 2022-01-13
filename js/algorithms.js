@@ -7,23 +7,28 @@ const {
   shuffleStr,
   ConsoleOut,
 } = require('./functions');
-const { _verbose, _numBytes, _numBits } = require('./settings');
+const {
+  _verbose,
+  _numBytes,
+  _numBits,
+  _numPartBytes,
+  _numPartBits,
+  _numLoops,
+} = require('./settings');
 
-/*
-input = array of hex value strings
+/**
+input = array of hex value strings (each element should be 8 bits long); 
 rawKey = the key as given by the 
 */
-function Encrypt(input, rawKey, numLoops) {
-  if (_verbose > 0) {
-    ConsoleOut('SUBMIT', input);
-  }
-
+function Encrypt(input, rawKey) {
   var hexArrayOutput = [];
 
-  for (let j = 0; j < numLoops; j++) {
+  for (let j = 0; j < _numLoops; j++) {
     hexArrayOutput = [];
 
-    var checksum = getByteChecksum(input) % rawKey.length;
+    var checksum = getByteChecksum(input) % 2 ** _numPartBits;
+    // TODO: mod by key length is dumb; part of the whole shit is that the key can be any length
+    // i get the mod has to happen for index-out-of-bounds reasons but that can happen when creating the substrings; doing it here reveals the key length
     var checksumHex = checksum.toString(16).padStart(_numBytes, '0');
     var key = shuffleStr(rawKey, checksum); // the key which has been shifted by the checksum
 
@@ -42,7 +47,9 @@ function Encrypt(input, rawKey, numLoops) {
       i = inputObj.index;
       for (let index = 0; index < inputObj.outBins.length; index++) {
         var hexChar = inputObj.outBins[index];
-        var outHex = parseInt(hexChar, 2).toString(16).padStart(_numBytes, '0');
+        var outHex = parseInt(hexChar, 2)
+          .toString(16)
+          .padStart(_numPartBytes, '0');
         hexArrayOutput.push(outHex);
       }
     }
@@ -57,18 +64,18 @@ function Encrypt(input, rawKey, numLoops) {
   return hexArrayOutput;
 }
 
-function Decrypt(input, rawKey, numLoops) {
-  if (_verbose == 1) {
-    ConsoleOut('SENT', input);
-  }
-
+/**
+input = array of hex value strings (each element should be 8 bits long); 
+rawKey = the key as given by the 
+*/
+function Decrypt(input, rawKey) {
   var hexArrayOutput = [];
 
-  for (let j = numLoops - 1; j >= 0; j--) {
+  for (let j = _numLoops - 1; j >= 0; j--) {
     hexArrayOutput = [];
 
     var checksumHexOut = input.pop();
-    var checksumOut = parseInt(checksumHexOut, 16) % rawKey.length;
+    var checksumOut = parseInt(checksumHexOut, 16);
     var key = shuffleStr(rawKey, checksumOut); // the key which has been shifted by the checksum
     var inputIndexOffset = 0;
 
@@ -88,7 +95,9 @@ function Decrypt(input, rawKey, numLoops) {
 
       for (let index = 0; index < inputObj.outBins.length; index += 2) {
         var hexChar = inputObj.outBins[index];
-        var outHex = parseInt(hexChar, 2).toString(16).padStart(_numBytes, '0');
+        var outHex = parseInt(hexChar, 2)
+          .toString(16)
+          .padStart(_numPartBytes, '0');
         hexArrayOutput.push(outHex);
       }
     }

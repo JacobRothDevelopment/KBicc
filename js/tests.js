@@ -11,6 +11,11 @@ const {
   unShuffleStr,
   charHexArrayToString,
   randomBits,
+  ConsoleOut,
+  arrayEquals,
+  getByteChecksum,
+  readText,
+  stringToCharHexArray,
 } = require('./functions');
 
 // getChecksum('abcd1234');
@@ -57,3 +62,15 @@ const {
 //   arr.pop();
 //   console.log(arr);
 // }
+
+// console.log('a' ^ 'b');
+// console.log('a' | 'b');
+// console.log(5 | 4); // or
+// console.log(5 ^ 4); // xor
+
+var dict = {
+  key: 'value',
+};
+console.log(dict['key']);
+console.log(dict['key2']);
+console.log(dict['key2'] == undefined);

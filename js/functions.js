@@ -1,4 +1,10 @@
-const { _hexOut, _numBytes, _numBits } = require('./settings');
+const {
+  _hexOut,
+  _numBytes,
+  _numBits,
+  _numPartBytes,
+  _numPartBits,
+} = require('./settings');
 const fs = require('fs');
 const path = require('path');
 
@@ -9,25 +15,32 @@ function xor(char1, char2) {
 
 function longXor(s1, s2) {
   var ret = '';
-  for (let i = 0; i < _numBits; i++) {
+  for (let i = 0; i < _numPartBits; i++) {
     var x = xor(s1[i], s2[i]);
     ret += x;
   }
   return ret;
 }
 
+function bitwiseXor(b1, b2) {
+  var n1 = parseInt(b1.substring(0, _numPartBits), 2);
+  var n2 = parseInt(b2.substring(0, _numPartBits), 2);
+  var xor = n1 ^ n2;
+  return xor.toString(2).padStart(_numPartBits, 0);
+}
+
 function bitAdd(c, n, doSubtract = false) {
   var int = parseInt(c, 2);
-  var powerOfTwoMod = 2 ** _numBits;
+  var powerOfTwoMod = 2 ** _numPartBits;
   if (doSubtract) {
     n = n * -1;
   }
   var retInt = (int + n + powerOfTwoMod) % powerOfTwoMod;
-  return retInt.toString(2).padStart(_numBits, '0');
+  return retInt.toString(2).padStart(_numPartBits, '0');
 }
 
 function hex2bin(hex) {
-  return parseInt(hex, 16).toString(2).padStart(_numBits, '0');
+  return parseInt(hex, 16).toString(2).padStart(_numPartBits, '0');
 }
 
 function specialMod(value) {
@@ -48,7 +61,7 @@ function getByteChecksum(arr) {
   var sum = 0;
   for (let i = 0; i < arr.length; i++) {
     var val = parseInt(arr[i], 16);
-    sum = (sum + val) % 255;
+    sum = sum + val;
   }
   return sum;
 }
@@ -76,24 +89,32 @@ function charHexArrayToString(a) {
 }
 
 function stringToCharHexArray(s) {
-  var hexArray = [];
+  var hexArray = []; // each element is _numPartBytes long
   for (let i = 0; i < s.length; i++) {
     var el = s[i];
     var charCode = el.charCodeAt();
     var stringCode = charCode.toString(16);
     var paddedStringCode = stringCode.padStart(_numBytes, '0');
-    hexArray.push(paddedStringCode);
-    if (paddedStringCode.length > _numBytes) {
-      console.log(paddedStringCode);
+
+    // split full hex into equal sized parts of length _numPartBytes
+    for (let i = 0; i < _numBytes / _numPartBytes; i++) {
+      var bytePart = paddedStringCode.substring(
+        i * _numPartBytes,
+        (i + 1) * _numPartBytes
+      );
+      hexArray.push(bytePart);
     }
   }
   return hexArray;
 }
 
 function shuffleStr(s, amount) {
+  var actualAmount = amount % s.length;
   if (s.length < 2) return s;
-  var s1 = s.substr(0, s.length - amount);
-  var s2 = s.substr(s.length - amount);
+  // var s1 = s.substr(0, s.length - actualAmount);
+  // var s2 = s.substr(s.length - actualAmount);
+  var s1 = s.substring(0, actualAmount);
+  var s2 = s.substring(actualAmount);
   return s2 + s1;
 }
 
@@ -104,7 +125,7 @@ function unShuffleStr(s, amount) {
   return s2 + s1;
 }
 
-function randomBits(n = _numBits) {
+function randomBits(n = _numPartBits) {
   var ret = '';
   for (let i = 0; i < n; i++) {
     if (Math.random() > 0.5) {
@@ -157,9 +178,10 @@ module.exports = {
   charHexArrayToString,
   stringToCharHexArray,
   shuffleStr,
-  unShuffleStr,
+  // unShuffleStr,
   randomBits,
   ConsoleOut,
   arrayEquals,
   readText,
+  bitwiseXor,
 };

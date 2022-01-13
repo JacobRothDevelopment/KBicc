@@ -4,12 +4,13 @@ const {
   stringToCharHexArray,
   arrayEquals,
   readText,
+  ConsoleOut,
 } = require('../js/functions');
 const { ResultsDict } = require('../js/ResultsDict');
-const { _numLoops } = require('../js/settings');
+const { _numLoops, _verbose } = require('../js/settings');
 
-const _keysLimit = 1000;
-const _messageLimit = 1;
+const _keysLimit = 10000;
+const _messageLimit = 10;
 const _keysFile = '../inputData/keys_1234567890ABCDEF.txt';
 const _messagesFile = '../inputData/a-300.txt';
 // const _messagesFile = '../inputData/sentences.txt';
@@ -21,39 +22,49 @@ const data = {
 };
 var results = new ResultsDict();
 
-const iLoopLength =
+var iKeysLength =
   typeof _keysLimit === 'undefined' ||
   _keysLimit === null ||
   _keysLimit > data.keys.length
     ? data.keys.length
     : _keysLimit;
-const iMessageLength =
+var iMessagesLength =
   typeof _messageLimit === 'undefined' ||
   _messageLimit === null ||
   _messageLimit > data.messages.length
     ? data.messages.length
     : _messageLimit;
 
-for (let i = 0; i < iLoopLength; i++) {
+for (let i = 0; i < iKeysLength; i++) {
   var key = data.keys[i];
-  for (let j = 0; j < iMessageLength; j++) {
-    const start = new Date();
+  for (let j = 0; j < iMessagesLength; j++) {
+    var start = new Date();
 
-    const message = data.messages[j];
-    const messageHex = stringToCharHexArray(message);
+    var message = data.messages[j];
+    var messageHex = stringToCharHexArray(message);
+    if (_verbose > 0) ConsoleOut('SUBMIT', messageHex);
 
-    const cryptHex = Encrypt(messageHex, key, _numLoops);
-    const receivedHex = Decrypt(cryptHex, key, _numLoops);
+    var cryptHex = Encrypt(messageHex, key);
+    if (_verbose == 1) ConsoleOut('SENT', cryptHex);
 
-    const success = arrayEquals(messageHex, receivedHex);
-    const exeTime = new Date() - start;
+    var receivedHex = Decrypt(cryptHex, key);
+    if (_verbose == 1) ConsoleOut('RECEIVED', receivedHex);
+
+    var success = arrayEquals(messageHex, receivedHex);
+    var exeTime = new Date() - start;
 
     console.log(success, i, j, '|', exeTime + ' ms');
     if (!success) throw new Error('encryption and decryption not successful');
     for (let m = 0; m < message.length; m++) {
-      const char = message[m];
-      const cryptCharHex = cryptHex[m];
+      var char = message[m];
+      var cryptCharHex = cryptHex[2 * m] + cryptHex[2 * m + 1];
       results.add(char, cryptCharHex);
     }
   }
 }
+
+var differentHex = results.countHex('a');
+var totalInstances = results.countInstances('a');
+var missingHexes = results.missingKeys('a');
+
+console.log('done');

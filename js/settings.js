@@ -1,8 +1,12 @@
 const _numLoops = 16; // number of
 const _verbose = 0; // 0 is no print out; 1 is important print outs; 2 is all print outs
+
 const _hexOut = true; // if true, print out hex array; otherwise, print chars
 const _numBytes = 4; // don't hate me, it's actually the number of bytes, but rather the number of hex digits accounted for each char
 const _numBits = _numBytes * 4;
+const _numPartBytes = 2; // see above
+const _numPartBits = _numPartBytes * 4;
+
 const _key = 'ab8cfe8d1912482c58c701d44912a2b5'.toUpperCase();
 
 // const _xorNums = [
@@ -33,5 +37,7 @@ module.exports = {
   _message,
   _numBytes,
   _numBits,
+  _numPartBytes,
+  _numPartBits,
   _xorNums,
 };
