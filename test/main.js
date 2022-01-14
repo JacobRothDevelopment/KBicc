@@ -5,11 +5,12 @@ const {
   arrayEquals,
   readText,
   ConsoleOut,
+  genKeys,
 } = require('../js/functions');
 const { ResultsDict } = require('../js/ResultsDict');
 const { _numLoops, _verbose } = require('../js/settings');
 
-const _keysLimit = 10000;
+const _keysLimit = 100;
 const _messageLimit = 10;
 const _keysFile = '../inputData/keys_1234567890ABCDEF.txt';
 const _messagesFile = '../inputData/a-300.txt';
@@ -17,7 +18,7 @@ const _messagesFile = '../inputData/a-300.txt';
 // const _messagesFile = '../inputData/veryLargeSentences.txt';
 
 const data = {
-  keys: readText(_keysFile),
+  keys: genKeys(32, _keysLimit),
   messages: readText(_messagesFile),
 };
 var results = new ResultsDict();

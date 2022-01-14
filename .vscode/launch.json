@@ -14,16 +14,16 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Test/Main",
+      "name": "JS/Tests",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\test\\main.js"
+      "program": "${workspaceFolder}\\js\\tests.js"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "JS/Tests",
+      "name": "Test/Main",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\js\\tests.js"
+      "program": "${workspaceFolder}\\test\\main.js"
     }
   ]
 }

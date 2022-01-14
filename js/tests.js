@@ -8,7 +8,6 @@ const {
   shuffle,
   unShuffle,
   shuffleStr,
-  unShuffleStr,
   charHexArrayToString,
   randomBits,
   ConsoleOut,
@@ -16,6 +15,7 @@ const {
   getByteChecksum,
   readText,
   stringToCharHexArray,
+  iterateKeyChar,
 } = require('./functions');
 
 // getChecksum('abcd1234');
@@ -68,9 +68,19 @@ const {
 // console.log(5 | 4); // or
 // console.log(5 ^ 4); // xor
 
-var dict = {
-  key: 'value',
-};
-console.log(dict['key']);
-console.log(dict['key2']);
-console.log(dict['key2'] == undefined);
+// var dict = {
+//   key: 'value',
+// };
+// console.log(dict['key']);
+// console.log(dict['key2']);
+// console.log(dict['key2'] == undefined);
+
+// console.log('0', iterateKeyChar('0', 1)); // 1
+// console.log('1', iterateKeyChar('1', 0)); // 1
+// console.log('2', iterateKeyChar('2', -1)); // 1
+// console.log('3', iterateKeyChar('3', -16)); // 3
+// console.log('4', iterateKeyChar('4', 16)); // 4
+// console.log('5', iterateKeyChar('5', 2)); // 7
+// console.log('9', iterateKeyChar('9', 1)); // A
+// console.log('A', iterateKeyChar('A', 1)); // B
+// console.log('F', iterateKeyChar('F', 1)); // 0

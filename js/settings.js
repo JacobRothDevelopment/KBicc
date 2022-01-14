@@ -7,6 +7,25 @@ const _numBits = _numBytes * 4;
 const _numPartBytes = 2; // see above
 const _numPartBits = _numPartBytes * 4;
 
+// const _keyChars = [
+//   '0',
+//   '1',
+//   '2',
+//   '3',
+//   '4',
+//   '5',
+//   '6',
+//   '7',
+//   '8',
+//   '9',
+//   'A',
+//   'B',
+//   'C',
+//   'D',
+//   'E',
+//   'F',
+// ];
+const _keyChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const _key = 'ab8cfe8d1912482c58c701d44912a2b5'.toUpperCase();
 
 // const _xorNums = [
@@ -40,4 +59,5 @@ module.exports = {
   _numPartBytes,
   _numPartBits,
   _xorNums,
+  _keyChars,
 };

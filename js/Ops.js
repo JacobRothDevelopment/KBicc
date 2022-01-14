@@ -226,13 +226,46 @@ var Ops4 = {
     inputObj.outBins = [bitwiseXor(inputObj.inBins, '00001111')];
   },
   E: (inputObj) => {
-    inputObj.outBins = [bitwiseXor(inputObj.inBins, '00111100')];
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '11110000')];
   },
   F: (inputObj) => {
-    inputObj.outBins = [bitwiseXor(inputObj.inBins, '11110000')];
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '11111111')];
   },
 };
 
-const Ops = Ops4;
+var Ops5 = {
+  0: (inputObj) => {
+    inputObj.outBins = [inputObj.inBins];
+  },
+  1: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '00000001')];
+  },
+  2: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '00000010')];
+  },
+  3: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '00000100')];
+  },
+  4: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '00001000')];
+  },
+  5: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '00010000')];
+  },
+  6: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '00100000')];
+  },
+  7: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '01000000')];
+  },
+  8: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '10000000')];
+  },
+  9: (inputObj) => {
+    inputObj.outBins = [bitwiseXor(inputObj.inBins, '11111111')];
+  },
+};
+
+const Ops = Ops5;
 
 module.exports = { Ops };

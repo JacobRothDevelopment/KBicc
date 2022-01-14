@@ -4,6 +4,7 @@ const {
   _numBits,
   _numPartBytes,
   _numPartBits,
+  _keyChars,
 } = require('./settings');
 const fs = require('fs');
 const path = require('path');
@@ -46,6 +47,11 @@ function hex2bin(hex) {
 function specialMod(value) {
   var modNum = modMax + 1 - modMin; // +1 for min through max inclusive
   return ((value + modNum) % modNum) + modMin;
+}
+
+function absoluteMod(value, mod) {
+  var a = value % mod;
+  return (a + mod) % mod;
 }
 
 function getStringChecksum(s) {
@@ -166,6 +172,30 @@ function readText(file) {
   return outLinesArray;
 }
 
+function iterateKeyChar(char, i) {
+  var index = _keyChars.indexOf(char);
+  return _keyChars[absoluteMod(index + i, _keyChars.length)];
+}
+
+function genKey(length) {
+  var key = '';
+  for (let i = 0; i < length; i++) {
+    var randomIndex = Math.floor(Math.random() * _keyChars.length);
+    var randomKeyChar = _keyChars[randomIndex];
+    key += randomKeyChar;
+  }
+  return key;
+}
+
+function genKeys(length, num) {
+  var keys = [];
+  for (let i = 0; i < num; i++) {
+    var key = genKey(length);
+    keys.push(key);
+  }
+  return keys;
+}
+
 module.exports = {
   xor,
   longXor,
@@ -178,10 +208,13 @@ module.exports = {
   charHexArrayToString,
   stringToCharHexArray,
   shuffleStr,
-  // unShuffleStr,
   randomBits,
   ConsoleOut,
   arrayEquals,
   readText,
   bitwiseXor,
+  iterateKeyChar,
+  absoluteMod,
+  genKey,
+  genKeys,
 };

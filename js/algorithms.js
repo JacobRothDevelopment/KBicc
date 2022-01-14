@@ -6,6 +6,7 @@ const {
   getByteChecksum,
   shuffleStr,
   ConsoleOut,
+  iterateKeyChar,
 } = require('./functions');
 const {
   _verbose,
@@ -34,7 +35,8 @@ function Encrypt(input, rawKey) {
 
     for (let i = 0; i < input.length; i++) {
       var keyChar = key[(i + j) % key.length];
-      var op = Ops[keyChar];
+      var newKey = iterateKeyChar(keyChar, i + j);
+      var op = Ops[newKey];
       var charAsciiHex = input[i];
       var charAsciiBin = hex2bin(charAsciiHex);
       var inputObj = {
@@ -81,7 +83,8 @@ function Decrypt(input, rawKey) {
 
     for (let i = 0; i + inputIndexOffset < input.length; i++) {
       var keyChar = key[(i + j + key.length) % key.length];
-      var op = Ops[keyChar];
+      var newKey = iterateKeyChar(keyChar, i + j);
+      var op = Ops[newKey];
       var charAsciiHex = input[i + inputIndexOffset];
       var charAsciiBin = hex2bin(charAsciiHex);
       var inputObj = {
