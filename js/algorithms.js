@@ -7,6 +7,7 @@ const {
   shuffleStr,
   ConsoleOut,
   iterateKeyChar,
+  randomBits,
 } = require('./functions');
 const {
   _verbose,
@@ -27,11 +28,13 @@ function Encrypt(input, rawKey) {
   for (let j = 0; j < _numLoops; j++) {
     hexArrayOutput = [];
 
-    var checksum = getByteChecksum(input) % 2 ** _numPartBits;
+    // var checksum = getByteChecksum(input) % 2 ** _numPartBits;
     // TODO: mod by key length is dumb; part of the whole shit is that the key can be any length
     // i get the mod has to happen for index-out-of-bounds reasons but that can happen when creating the substrings; doing it here reveals the key length
-    var checksumHex = checksum.toString(16).padStart(_numBytes, '0');
-    var key = shuffleStr(rawKey, checksum); // the key which has been shifted by the checksum
+    // var checksumHex = checksum.toString(16).padStart(_numPartBytes, '0');
+    var shuffleVar = parseInt(randomBits(), 2);
+    var shuffleHex = shuffleVar.toString(16).padStart(_numPartBytes, '0');
+    var key = shuffleStr(rawKey, shuffleVar); // the key which has been shifted
 
     for (let i = 0; i < input.length; i++) {
       var keyChar = key[(i + j) % key.length];
@@ -55,7 +58,8 @@ function Encrypt(input, rawKey) {
         hexArrayOutput.push(outHex);
       }
     }
-    hexArrayOutput.push(checksumHex);
+    // hexArrayOutput.push(checksumHex);
+    hexArrayOutput.push(shuffleHex);
     input = shuffle(hexArrayOutput);
 
     if (_verbose == 2) {
@@ -76,9 +80,9 @@ function Decrypt(input, rawKey) {
   for (let j = _numLoops - 1; j >= 0; j--) {
     hexArrayOutput = [];
 
-    var checksumHexOut = input.pop();
-    var checksumOut = parseInt(checksumHexOut, 16);
-    var key = shuffleStr(rawKey, checksumOut); // the key which has been shifted by the checksum
+    var shuffleHexOut = input.pop();
+    var shuffleOut = parseInt(shuffleHexOut, 16);
+    var key = shuffleStr(rawKey, shuffleOut); // the key which has been shifted
     var inputIndexOffset = 0;
 
     for (let i = 0; i + inputIndexOffset < input.length; i++) {

@@ -7,3 +7,7 @@
     - IDEA2: "shuffle" the message with every loop. the ending char will be placed at the front
 - looping the encryption will strengthen the algorithm
 - changing the position in the key each encryption loop will greatly strengthen the crypt
+
+# NEW NEW NEW
+
+INSTEAD OF APPENDING CHECKSUM, CHOOSE RANDOM NUMBER

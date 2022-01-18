@@ -131,9 +131,9 @@ function unShuffleStr(s, amount) {
   return s2 + s1;
 }
 
-function randomBits(n = _numPartBits) {
+function randomBits(l = _numPartBits) {
   var ret = '';
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < l; i++) {
     if (Math.random() > 0.5) {
       ret += '0';
     } else {

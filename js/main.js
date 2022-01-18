@@ -14,9 +14,13 @@ const {
 } = require('./functions');
 
 var hexArrayInput = stringToCharHexArray(_message);
+if (_verbose > 0) ConsoleOut('SUBMIT', hexArrayInput);
 
-var middleOutput2 = Encrypt(hexArrayInput, _key, _numLoops);
-var hexArrayOutput = Decrypt(middleOutput2, _key, _numLoops);
+var middleOutput2 = Encrypt(hexArrayInput, _key);
+if (_verbose == 1) ConsoleOut('SUBMIT', hexArrayInput);
+
+var hexArrayOutput = Decrypt(middleOutput2, _key);
+if (_verbose == 1) ConsoleOut('SUBMIT', hexArrayInput);
 
 const exeTime = new Date() - start;
 
@@ -24,6 +28,6 @@ if (_verbose == 1) {
   ConsoleOut('RECEIVED', hexArrayOutput);
 }
 
-console.log('SUCCESSFUL :', arrayEquals(hexArrayInput, hexArrayOutput));
+ConsoleOut('SUCCESSFUL', arrayEquals(hexArrayInput, hexArrayOutput));
 
-console.log('execution time\t:', exeTime + ' ms');
+ConsoleOut('exe time', exeTime + ' ms');
