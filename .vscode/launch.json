@@ -9,21 +9,28 @@
       "request": "launch",
       "name": "JS/Main",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\js\\main.js"
+      "program": "${workspaceFolder}\\experimental\\main.js"
     },
     {
       "type": "pwa-node",
       "request": "launch",
       "name": "JS/Tests",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\js\\tests.js"
+      "program": "${workspaceFolder}\\experimental\\tests.js"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Test/Main",
+      "name": "Tests/JS-Main",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\test\\main.js"
+      "program": "${workspaceFolder}\\largeTest\\main.js"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "JS",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\js\\main.js"
     }
   ]
 }

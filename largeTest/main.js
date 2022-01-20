@@ -1,16 +1,16 @@
 // #region SETUP
 
 // const data = require('../inputs.json');
-const { Encrypt, Decrypt } = require('../js/algorithms');
+const { Encrypt, Decrypt } = require('../experimental/algorithms');
 const {
   stringToCharHexArray,
   arrayEquals,
   readText,
   ConsoleOut,
   genKeys,
-} = require('../js/functions');
-const { ResultsDict } = require('../js/ResultsDict');
-const { _verbose } = require('../js/settings');
+} = require('../experimental/functions');
+const { ResultsDict } = require('../experimental/ResultsDict');
+const { _verbose } = require('../experimental/settings');
 
 const _keysLimit = 1000;
 const _messageLimit = 1;

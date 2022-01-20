@@ -87,11 +87,21 @@ function unShuffle(a) {
 }
 
 function charHexArrayToString(a) {
-  var cipher = '';
-  for (let i = 0; i < a.length; i++) {
-    cipher += String.fromCharCode('0x' + a[i]);
+  var properSizeHexCharArray = [];
+  var numPartsInWhole = _numBytes / _numPartBytes;
+  for (let i = 0; i < a.length; i += numPartsInWhole) {
+    var fullCharHex = '';
+    for (let j = i; j < i + numPartsInWhole; j++) {
+      fullCharHex += a[j];
+    }
+    properSizeHexCharArray.push(fullCharHex);
   }
-  return cipher;
+
+  var string = '';
+  for (let i = 0; i < properSizeHexCharArray.length; i++) {
+    string += String.fromCharCode('0x' + properSizeHexCharArray[i]);
+  }
+  return string;
 }
 
 function stringToCharHexArray(s) {

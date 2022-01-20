@@ -3,7 +3,7 @@ const {
   _numPartBits,
   _numBytes,
   _numBits,
-} = require('../js/settings');
+} = require('./settings');
 const { ConsoleOut } = require('./functions');
 
 class ResultsDict {

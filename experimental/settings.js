@@ -1,4 +1,4 @@
-const _numLoops = 16; // 16; number of
+const _numLoops = 16; // 16; number of times encrypted
 
 const _verbose = 0; // 0 is no print out; 1 is important print outs; 2 is all print outs
 
