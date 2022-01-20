@@ -5,7 +5,7 @@ const {
   unShuffleStr,
   bitwiseXor,
 } = require('./functions');
-const { _numBits, _xorNums } = require('./settings');
+const { _xorNums, _OpsNum } = require('./settings');
 
 /*
 inputObj = {
@@ -266,6 +266,27 @@ var Ops5 = {
   },
 };
 
-const Ops = Ops5;
+var halfOps = {};
+switch (_OpsNum) {
+  case 1:
+    halfOps = Ops1;
+    break;
+  case 2:
+    halfOps = Ops2;
+    break;
+  case 3:
+    halfOps = Ops3;
+    break;
+  case 4:
+    halfOps = Ops4;
+    break;
+  case 5:
+    halfOps = Ops5;
+    break;
+  default:
+    break;
+}
+
+const Ops = halfOps;
 
 module.exports = { Ops };

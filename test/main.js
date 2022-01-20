@@ -1,3 +1,5 @@
+// #region SETUP
+
 // const data = require('../inputs.json');
 const { Encrypt, Decrypt } = require('../js/algorithms');
 const {
@@ -8,11 +10,12 @@ const {
   genKeys,
 } = require('../js/functions');
 const { ResultsDict } = require('../js/ResultsDict');
-const { _numLoops, _verbose } = require('../js/settings');
+const { _verbose } = require('../js/settings');
 
-const _keysLimit = 100;
-const _messageLimit = 10;
-const _keysFile = '../inputData/keys_1234567890ABCDEF.txt';
+const _keysLimit = 1000;
+const _messageLimit = 1;
+// const _keysFile = '../inputData/keys_1234567890ABCDEF.txt';
+
 const _messagesFile = '../inputData/a-300.txt';
 // const _messagesFile = '../inputData/sentences.txt';
 // const _messagesFile = '../inputData/veryLargeSentences.txt';
@@ -21,6 +24,7 @@ const data = {
   keys: genKeys(32, _keysLimit),
   messages: readText(_messagesFile),
 };
+
 var results = new ResultsDict();
 
 var iKeysLength =
@@ -35,6 +39,10 @@ var iMessagesLength =
   _messageLimit > data.messages.length
     ? data.messages.length
     : _messageLimit;
+
+var totalRuntime = 0;
+
+// #endregion
 
 for (let i = 0; i < iKeysLength; i++) {
   var key = data.keys[i];
@@ -53,6 +61,7 @@ for (let i = 0; i < iKeysLength; i++) {
 
     var success = arrayEquals(messageHex, receivedHex);
     var exeTime = new Date() - start;
+    totalRuntime += exeTime;
 
     console.log(success, i, j, '|', exeTime + ' ms');
     if (!success) throw new Error('encryption and decryption not successful');
@@ -67,5 +76,11 @@ for (let i = 0; i < iKeysLength; i++) {
 var differentHex = results.countHex('a');
 var totalInstances = results.countInstances('a');
 var missingHexes = results.missingKeys('a');
+
+var averageInstance = results.getAverageInstance('a');
+var highestInstance = results.getHighestInstance('a');
+var lowestInstance = results.getLowestInstance('a');
+
+var averageRuntime = totalRuntime / (iKeysLength * iMessagesLength);
 
 console.log('done');

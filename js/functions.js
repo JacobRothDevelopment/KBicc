@@ -177,6 +177,14 @@ function iterateKeyChar(char, i) {
   return _keyChars[absoluteMod(index + i, _keyChars.length)];
 }
 
+function iterateKeyChars(key, n) {
+  var newKey = '';
+  for (let i = 0; i < key.length; i++) {
+    newKey += iterateKeyChar(key[i], n);
+  }
+  return newKey;
+}
+
 function genKey(length) {
   var key = '';
   for (let i = 0; i < length; i++) {
@@ -208,6 +216,7 @@ module.exports = {
   charHexArrayToString,
   stringToCharHexArray,
   shuffleStr,
+  unShuffleStr,
   randomBits,
   ConsoleOut,
   arrayEquals,
@@ -217,4 +226,5 @@ module.exports = {
   absoluteMod,
   genKey,
   genKeys,
+  iterateKeyChars,
 };

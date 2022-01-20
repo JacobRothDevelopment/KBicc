@@ -60,6 +60,38 @@ class ResultsDict {
     }
     return count;
   }
+
+  getAverageInstance(char) {
+    var accum = 0;
+    var count = 0;
+    for (let hex in this.map[char]) {
+      count += 1;
+      accum += this.map[char][hex];
+    }
+    return accum / count;
+  }
+
+  getHighestInstance(char) {
+    var highest = 0;
+    for (let hex in this.map[char]) {
+      if (highest < this.map[char][hex]) {
+        highest = this.map[char][hex];
+      }
+    }
+    return highest;
+  }
+
+  getLowestInstance(char) {
+    var lowest = -1;
+    for (let hex in this.map[char]) {
+      if (lowest == -1) {
+        lowest = this.map[char][hex];
+      } else if (lowest > this.map[char][hex]) {
+        lowest = this.map[char][hex];
+      }
+    }
+    return lowest;
+  }
 }
 
 module.exports = {

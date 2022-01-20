@@ -17,6 +17,7 @@ const {
   stringToCharHexArray,
   iterateKeyChar,
   genKey,
+  iterateKeyChars,
 } = require('./functions');
 
 // getChecksum('abcd1234');
@@ -86,4 +87,10 @@ const {
 // console.log('A', iterateKeyChar('A', 1)); // B
 // console.log('F', iterateKeyChar('F', 1)); // 0
 
-console.log(genKey(32));
+// console.log(genKey(32));
+
+var key = '012349';
+console.log(iterateKeyChars(key, 1));
+console.log(iterateKeyChars(key, 20));
+console.log(iterateKeyChars(key, 0));
+console.log(iterateKeyChars(key, -1));
