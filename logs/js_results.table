@@ -1,5 +1,6 @@
 Ops 5
 	num chars	loops		avg runtime		unique hexes (a)
+	324000		256							62756
 	324000		128			226				58231
 	324000		128			230				58364
 	324000		64			110				54014

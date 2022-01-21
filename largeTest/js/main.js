@@ -1,16 +1,16 @@
 // #region SETUP
 
-// const data = require('../inputs.json');
-const { Encrypt, Decrypt } = require('../experimental/algorithms');
+// const data = require('../../inputs.json');
+const { Encrypt, Decrypt } = require('../../experimental/algorithms');
 const {
   stringToCharHexArray,
   arrayEquals,
   readText,
   ConsoleOut,
   genKeys,
-} = require('../experimental/functions');
-const { ResultsDict } = require('../experimental/ResultsDict');
-const { _verbose } = require('../experimental/settings');
+} = require('../../experimental/functions');
+const { ResultsDict } = require('../../experimental/ResultsDict');
+const { _verbose } = require('../../experimental/settings');
 
 const _keysLimit = 1000;
 const _messageLimit = 1;
@@ -83,4 +83,11 @@ var lowestInstance = results.getLowestInstance('a');
 
 var averageRuntime = totalRuntime / (iKeysLength * iMessagesLength);
 
+console.log('differentHex', differentHex);
+console.log('totalInstances', totalInstances);
+console.log('missingHexes', missingHexes);
+console.log('averageInstance', averageInstance);
+console.log('highestInstance', highestInstance);
+console.log('lowestInstance', lowestInstance);
+console.log('averageRuntime', averageRuntime);
 console.log('done');

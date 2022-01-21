@@ -5,32 +5,54 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "g++ build & run active file",
+      "type": "cppdbg",
+      "request": "launch",
+      // "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "${workspaceFolder}/cpp/main.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false, //set to true to see output in cmd instead
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:\\MinGW64\\bin\\gdb.exe",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "g++ build & run active file"
+    },
+    {
       "type": "pwa-node",
       "request": "launch",
-      "name": "JS/Main",
+      "name": "Experimental",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\experimental\\main.js"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "JS/Tests",
+      "name": "Experimental Test",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\experimental\\tests.js"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Tests/JS-Main",
+      "name": "Experimental LargeTests JS",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\largeTest\\main.js"
+      "program": "${workspaceFolder}\\largeTest\\js\\main.js"
     },
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "JS",
+      "name": "JS Main",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\js\\main.js"
+      "program": "${workspaceFolder}\\js\\test.js"
     }
   ]
 }

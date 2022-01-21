@@ -1,4 +1,4 @@
-const _numLoops = 16; // 16; number of times encrypted
+const _numLoops = 12; // number of times encrypted
 const _verbose = 2; // 0 is no print out; 1 is important print outs; 2 is all print outs
 const _hexOut = true; // if true, print out hex array; otherwise, print chars
 const _numBytes = 4; // don't hate me, it's actually the number of bytes, but rather the number of hex digits accounted for each char
@@ -14,46 +14,13 @@ function bitwiseXor(b1, b2) {
   return xor.toString(2).padStart(_numPartBits, 0);
 }
 
-function bitAdd(c, n, doSubtract = false) {
-  var int = parseInt(c, 2);
-  var powerOfTwoMod = 2 ** _numPartBits;
-  if (doSubtract) {
-    n = n * -1;
-  }
-  var retInt = (int + n + powerOfTwoMod) % powerOfTwoMod;
-  return retInt.toString(2).padStart(_numPartBits, '0');
-}
-
 function hex2bin(hex) {
   return parseInt(hex, 16).toString(2).padStart(_numPartBits, '0');
-}
-
-function specialMod(value) {
-  var modNum = modMax + 1 - modMin; // +1 for min through max inclusive
-  return ((value + modNum) % modNum) + modMin;
 }
 
 function absoluteMod(value, mod) {
   var a = value % mod;
   return (a + mod) % mod;
-}
-
-function getStringChecksum(s) {
-  var sum = 0;
-  for (let i = 0; i < s.length; i++) {
-    var val = s[i].charCodeAt();
-    sum = (sum + val) % 255;
-  }
-  return sum;
-}
-
-function getByteChecksum(arr) {
-  var sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    var val = parseInt(arr[i], 16);
-    sum = sum + val;
-  }
-  return sum;
 }
 
 function shuffle(a) {
@@ -108,23 +75,6 @@ function stringToCharHexArray(s) {
   return hexArray;
 }
 
-function shuffleStr(s, amount) {
-  var actualAmount = amount % s.length;
-  if (s.length < 2) return s;
-  // var s1 = s.substr(0, s.length - actualAmount);
-  // var s2 = s.substr(s.length - actualAmount);
-  var s1 = s.substring(0, actualAmount);
-  var s2 = s.substring(actualAmount);
-  return s2 + s1;
-}
-
-function unShuffleStr(s, amount) {
-  if (s.length < 2) return s;
-  var s1 = s.substr(0, amount);
-  var s2 = s.substr(amount);
-  return s2 + s1;
-}
-
 function randomBits(l = _numPartBits) {
   var ret = '';
   for (let i = 0; i < l; i++) {
@@ -143,27 +93,6 @@ function ConsoleOut(label, array) {
   } else {
     console.log(label.padEnd(10, ' ') + ':', charHexArrayToString(array));
   }
-}
-
-function arrayEquals(a, b) {
-  return (
-    Array.isArray(a) &&
-    Array.isArray(b) &&
-    a.length === b.length &&
-    a.every((val, index) => val === b[index])
-  );
-}
-
-function readText(file) {
-  var fullPath = path.resolve(__dirname, file);
-  var data = fs.readFileSync(fullPath, 'utf8');
-  var inLinesArray = data.split('\n');
-  var outLinesArray = [];
-  for (let i = 0; i < inLinesArray.length; i++) {
-    const el = inLinesArray[i].trim();
-    outLinesArray.push(el);
-  }
-  return outLinesArray;
 }
 
 function iterateKeyChar(char, i) {
@@ -305,18 +234,9 @@ function Decrypt(input, rawKey) {
   return hexArrayOutput;
 }
 
-var message = 'Hello World?';
-var key = '1234567890987654321';
-
-console.log(message);
-
-var messageHex = stringToCharHexArray(message);
-console.log(messageHex);
-
-var encryptedMessageHex = Encrypt(messageHex, key);
-console.log(encryptedMessageHex);
-
-var decryptedMessageHex = Decrypt(encryptedMessageHex, key);
-console.log(decryptedMessageHex);
-
-console.log(charHexArrayToString(decryptedMessageHex));
+module.exports = {
+  Encrypt,
+  Decrypt,
+  stringToCharHexArray,
+  charHexArrayToString,
+};
