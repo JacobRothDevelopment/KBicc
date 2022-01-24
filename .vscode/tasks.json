@@ -1,40 +1,20 @@
 {
   "tasks": [
     {
-      "type": "cppbuild",
-      "label": "g++.exe build active file",
-      "command": "C:\\MinGW64\\bin\\g++.exe",
-      // "args": [
-      //   "/Zi",
-      //   "/EHsc",
-      //   "/nologo",
-      //   "/Fe:",
-      //   "${fileDirname}\\${fileBasenameNoExtension}.exe",
-      //   "${file}"
-      // ],
+      "label": "Build C++",
+      "type": "shell",
+      "command": "g++", // add MinGW64\bin to PATH
+      // "command": "C:\\MinGW64\\bin\\g++.exe",
       "args": [
         "-g",
-        "${file}",
+        "${workspaceFolder}\\cpp\\main.cpp",
         "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+        "${workspaceFolder}\\cpp\\main.exe"
       ],
-      "options": {
-        "cwd": "C:\\MinGW64\\bin"
-      },
-      "problemMatcher": ["$msCompile"],
-      "group": "build"
-    },
-    {
-      "type": "shell",
-      "label": "g++ build & run active file",
-      "command": "C:\\MinGW64\\bin\\g++.exe",
-      "args": [
-        "${file}",
-        "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
-      ],
-      "options": {
-        "cwd": "C:\\MinGW64\\bin"
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
       }
     }
   ],

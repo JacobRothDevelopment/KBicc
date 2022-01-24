@@ -5,16 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "g++ build & run active file",
+      "name": "C++ Main",
       "type": "cppdbg",
       "request": "launch",
-      // "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-      "program": "${workspaceFolder}/cpp/main.exe",
+      "program": "${workspaceFolder}\\cpp\\main.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
-      "externalConsole": false, //set to true to see output in cmd instead
+      "externalConsole": false,
       "MIMode": "gdb",
       "miDebuggerPath": "C:\\MinGW64\\bin\\gdb.exe",
       "setupCommands": [
@@ -24,7 +23,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "g++ build & run active file"
+      "preLaunchTask": "Build C++"
     },
     {
       "type": "pwa-node",
