@@ -5,27 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C++ Main",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}\\cpp\\main.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "miDebuggerPath": "C:\\MinGW64\\bin\\gdb.exe",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ],
-      "preLaunchTask": "Build C++"
-    },
-    {
       "type": "pwa-node",
       "request": "launch",
       "name": "Experimental",
